@@ -20,7 +20,11 @@ module JBundle
     def buildable?
       BUILDABLE_FILES.include?(ext)
     end
-    
+
+    def minify?
+      ::File.extname(::File.basename(name, ::File.extname(name))) != '.min'
+    end
+
     # This only makes sense for one-file objects
     def src_path
       ::File.join(@src_dir, @file_list.original_name)

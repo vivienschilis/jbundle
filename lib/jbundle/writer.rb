@@ -55,12 +55,16 @@ module JBundle
             @compiler.dir, 
             interpolate(@compiler.name, TOKENS[:version] => version_string)
           )
-          @out << write_file(
-            @compiler.min, 
-            versioned_target, 
-            @compiler.dir, 
-            interpolate(@compiler.min_name, TOKENS[:version] => version_string)
-          )
+
+          if @compiler.minify?
+            @out << write_file(
+              @compiler.min, 
+              versioned_target, 
+              @compiler.dir, 
+              interpolate(@compiler.min_name, TOKENS[:version] => version_string)
+            )
+          end
+
         else # Other files (HTML, SWF, etc)
           @out << copy_file(
             @compiler.src_path, 
